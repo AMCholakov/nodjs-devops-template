@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  #Node service
+  app:
+    image: node:11
+    volumes:
+      - ${PROJECT_DIR}:${WORKING_DIR}
+    working_dir: ${WORKING_DIR}
+    restart: unless-stopped
+    container_name: ${PROJECT_NAME}
+    tty: true
+    environment:
+      NODE_ENV: ${NODE_ENV}
+    ports:
+      - ${EXPORT_PORT}:${EXPORT_PORT}
+    user: node
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
