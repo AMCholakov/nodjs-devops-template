@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+
+  base:
+    image: node:11
+    volumes:
+      - ${PROJECT_DIR}:${WORKING_DIR}
+      - nodemodules:${WORKING_DIR}/node_modules
+    working_dir: ${WORKING_DIR}
+
+  install:
+    extends:
+      service: base
+    command: npm i
+
+  build:
+    extends:
+      service: base
+    command: npm run build
+
+  create-bundles:
+    extends:
+      service: base
+    command: npm run create-bundles
+
+volumes:
+  nodemodules:
+    external: true

@@ -6,6 +6,7 @@ services:
     image: node:11
     volumes:
       - ${PROJECT_DIR}:${WORKING_DIR}
+      - nodemodules:${WORKING_DIR}/node_modules
     working_dir: ${WORKING_DIR}
     restart: unless-stopped
     container_name: ${PROJECT_NAME}
@@ -15,10 +16,8 @@ services:
     ports:
       - ${EXPORT_PORT}:${EXPORT_PORT}
     user: node
-    networks:
-      - app-network
+    command: npm start
 
-#Docker Networks
-networks:
-  app-network:
-    driver: bridge
+volumes:
+  nodemodules:
+    external: true
